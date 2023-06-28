@@ -11,6 +11,7 @@
     (a) What time series methodologies are appropriate to project indicators (like GDP) forward in time? Basic time series analysis that Victor is familiar with requires certain assumptions (either staionary time series or autoregressive) - is that sufficent? <br>
     (b) What about mulifactor/multivariable time series analysis?
 3.  Clustering - select appropriate clustering algorithm for nearest neighbor selection <br>
-4. Data storytelling - prepare case examples
-5. Lit Review
-6. Game it out - create wargame type experiments and try this out in repeated trials to see if effective. 
+4.  Another idea - Could we make epidemics or pandemics proxies for genocide and look at the impact of COVID (global) or Ebola (regional to W. Africa) on the indicators we are studying.
+5. Data storytelling - prepare case examples
+6. Lit Review
+7. Game it out - create wargame type experiments and try this out in repeated trials to see if effective. 

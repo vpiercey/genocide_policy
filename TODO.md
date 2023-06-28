@@ -12,4 +12,5 @@
     (b) What about mulifactor/multivariable time series analysis?
 3.  Clustering - select appropriate clustering algorithm for nearest neighbor selection <br>
 4. Data storytelling - prepare case examples
-5. Game it out - create wargame type experiments and try this out in repeated trials to see if effective. 
+5. Lit Review
+6. Game it out - create wargame type experiments and try this out in repeated trials to see if effective. 

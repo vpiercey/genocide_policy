@@ -15,7 +15,7 @@
 import os
 import pandas
 
-DATA_FOLDER = os.path.dirname(os.path.dirname(__file__))
+DATA_FOLDER = os.path.abspath('../data')
 
 def load(folder=DATA_FOLDER):
     '''
@@ -138,3 +138,6 @@ def to_long(mydf):
     df_long.replace({'X':'S'}, inplace=True)
     
     return df_long
+
+if __name__=="__main__":
+    create_joined()

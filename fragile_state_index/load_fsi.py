@@ -36,6 +36,7 @@ def load(folder='data'):
         fname = os.path.join(folder, 'fsi-%i.xlsx'%i)
         df = pandas.read_excel(fname)
         df['Year'] = i # correct misinterpreted data
+        df['Country'] = df['Country'].str.strip() # remove trailing whitespace
         dfs.append(df)
     
     df = pandas.concat(dfs, axis=0, ignore_index=True)
@@ -63,7 +64,6 @@ def create_joined(fname='fsi_2006-2023.csv', folder='data'):
 
 def load_joined(fname='fsi_2006-2023.csv'):
     df = pandas.read_csv(fname)
-    df.drop(columns=['Change from Previous Year'], inplace=True)
     return df
 
 def indicator_list():

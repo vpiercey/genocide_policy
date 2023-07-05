@@ -28,7 +28,7 @@ df_fsi = load_fsi.to_long(df_fsi)
 # This is ad-hoc since there are fewer than 16 unique
 # countries in the TMK database after 2006.
 fig,ax = plt.subplots(
-    4,5, figsize=(15,12), sharex=True, sharey=True, 
+    4,5, figsize=(16,12), sharex=True, sharey=True, 
     constrained_layout=True
     )
 
@@ -79,7 +79,7 @@ for event in df_tmk.iloc:
             covered[country] = []
         if event['year'] in covered[country]:
             continue
-        _ax.axvspan(event['year'], event['year']+1, facecolor='#ccb', edgecolor='#ffd', hatch='///', zorder=-1000)
+        _ax.axvspan(event['year'], event['year']+1, facecolor='#ddc', edgecolor='#ffd', hatch='///', zorder=-1000)
         
         # avoid double-plots (or have better resolution visualizing TMK events)
         covered[country].append( event['year'] )

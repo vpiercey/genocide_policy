@@ -1,0 +1,10 @@
+# Project Short Description <br>
+The goal of this page is to provide an oveview and summary of the project (which at this point is named "Genocide Prevention" but will probably have a more descriptive name later). <br>
+<br>
+We hope the project will provide a pipeline to generate an argument to policymakers to improve their country's resilience to genocide, particularly when it appears at-risk. We envision a rough two-stage process: <br>
+1. Identify "nearest neighbors" - if country A is identified as being at-risk, which countries that experienced genocide events have profiles (in terms of conflict, economic conditions, social conditions, etc.) that is most similar to country A? <br>
+2. What happened to those countries - what happened, for example, to their economies? Can we use those data and something like multifactor time-series analysis to project what we expect to happen to country A if they choose not to act? <br>
+<br>
+The over-arching assumption in this program is that the policymakers will act in their own self-interest, whether as individuals (stay in power) or for their country (economics). There are thorny questions about identifying the right audience and the right speakers for the discussion. These shouldn't be lost. <br>
+<br>
+Our most immediate task is to identify the data that can be used for this analysis. In terms of events, we will use the targeted mass killing (TMK) database, consisting of 537 observations from 207 unique events across the world between 1945 and 2021. In terms of data about the countries, we are examining the fragile state index (FSI). The FSI only has data from 2006, so we can look at TMK events since 2006 (there are 35 unique such events) and examine which FSI indicators are suggestive. We can also examine the indicators and try to replicate the calculations for earlier events (allowing us to have a larger training set). 

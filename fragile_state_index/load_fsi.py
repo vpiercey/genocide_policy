@@ -32,10 +32,10 @@ def load(folder='data'):
     folder = os.path.join(folder, 'data')
     
     dfs = []
-    for i in range(2006, 2023+1):
+    for i in range(2006, 2023+1): # TODO: switch to glob.glob on filename
         fname = os.path.join(folder, 'fsi-%i.xlsx'%i)
         df = pandas.read_excel(fname)
-        df['Year'] = i # correct misinterpreted data
+        df['Year'] = i # correct misinterpreted data type
         df['Country'] = df['Country'].str.strip() # remove trailing whitespace
         dfs.append(df)
     
@@ -43,11 +43,14 @@ def load(folder='data'):
     df.drop(columns=['Change from Previous Year'], inplace=True)
     
     # country name "Kyrgyzstan" only has data for 2021-2022;
-    # "Kyrgyz Republic" is complete. No apparent difference
-    # in the names.
-    df = df[ df['Country'] != 'Kyrgyzstan' ]
-    # Similar for "Slovakia" vs "Slovak Republic".
-    df = df[ df['Country'] != 'Slovakia' ]
+    # "Kyrgyz Republic" is complete. 
+    # No apparent difference in country sovereignty.
+    # Similarly for Slovakia vs Slovak Republic.
+    # Other exclusions can be put here later as well.
+    df = df[ ~ df['Country'].isin( 
+        ['Kyrgyzstan','Slovakia']
+        )
+        ]
     
     return df
 
@@ -101,10 +104,16 @@ def indicator_list_short():
 
 def shorten_indicators(mydf):
     ll = indicator_list()
-    mydf.rename(
-        columns={s: s.split(':')[0] for s in ll},
-        inplace=True
-        )
+    if 'Indicator' in mydf.columns:
+        mydf.replace(
+            to_replace={s: s.split(':')[0] for s in ll},
+            inplace=True
+            )
+    else:
+        mydf.rename(
+            columns={s: s.split(':')[0] for s in ll},
+            inplace=True
+            )
     return
 
 def to_long(mydf):
@@ -112,10 +121,12 @@ def to_long(mydf):
     
     all_vars = mydf.columns
     
+    indicators = np.setdiff1d( all_vars, ['Country', 'Year', 'Rank', 'Total'] )
+    
     df_long = pandas.melt(
         mydf,
         id_vars=['Country', 'Year'],
-        value_vars=np.setdiff1d( all_vars, ['Country', 'Year'] ),
+        value_vars=indicators,
         var_name='Indicator'
     )
     return df_long

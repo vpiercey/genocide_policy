@@ -15,7 +15,9 @@
 import os
 import pandas
 
-def load(folder='data'):
+DATA_FOLDER = os.path.dirname(os.path.dirname(__file__))
+
+def load(folder=DATA_FOLDER):
     '''
     Loads Fragile State Index data as a single 
     pandas dataframe. 
@@ -54,7 +56,7 @@ def load(folder='data'):
     
     return df
 
-def create_joined(fname='fsi_2006-2023.csv', folder='data'):
+def create_joined(fname='fsi_2006-2023.csv', folder=DATA_FOLDER):
     '''
     Creates a CSV file of the joined data. If already created, bypasses 
     the need for an xlsx compatible loader for pandas.
@@ -68,6 +70,7 @@ def create_joined(fname='fsi_2006-2023.csv', folder='data'):
         path = os.path.abspath(fname)
         df.to_csv(path, index=None)
         print('Success')
+        print('')
         print('File written to %s'%path)
     except:
         print('Failure')
@@ -129,4 +132,9 @@ def to_long(mydf):
         value_vars=indicators,
         var_name='Indicator'
     )
+    
+    # add super-categories
+    df_long['Indicator_group'] = [s[0] for s in df_long['Indicator']]
+    df_long.replace({'X':'S'}, inplace=True)
+    
     return df_long

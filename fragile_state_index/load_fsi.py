@@ -41,6 +41,14 @@ def load(folder='data'):
     
     df = pandas.concat(dfs, axis=0, ignore_index=True)
     df.drop(columns=['Change from Previous Year'], inplace=True)
+    
+    # country name "Kyrgyzstan" only has data for 2021-2022;
+    # "Kyrgyz Republic" is complete. No apparent difference
+    # in the names.
+    df = df[ df['Country'] != 'Kyrgyzstan' ]
+    # Similar for "Slovakia" vs "Slovak Republic".
+    df = df[ df['Country'] != 'Slovakia' ]
+    
     return df
 
 def create_joined(fname='fsi_2006-2023.csv', folder='data'):
@@ -88,8 +96,7 @@ def indicator_list_short():
         'C1', 'C2', 'C3', 
         'E1', 'E2', 'E3', 
         'P1', 'P2', 'P3', 
-        'S1', 'S2', 
-        'X1']
+        'S1', 'S2', 'X1']
     return ll
 
 def shorten_indicators(mydf):
@@ -99,3 +106,16 @@ def shorten_indicators(mydf):
         inplace=True
         )
     return
+
+def to_long(mydf):
+    import numpy as np
+    
+    all_vars = mydf.columns
+    
+    df_long = pandas.melt(
+        mydf,
+        id_vars=['Country', 'Year'],
+        value_vars=np.setdiff1d( all_vars, ['Country', 'Year'] ),
+        var_name='Indicator'
+    )
+    return df_long

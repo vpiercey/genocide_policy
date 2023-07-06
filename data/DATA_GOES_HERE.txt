@@ -1,0 +1,5 @@
+note: for Fragile State Index files, 
+rename 2022 and 2023 files 
+to match convention of prior years.
+
+

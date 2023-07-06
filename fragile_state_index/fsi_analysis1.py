@@ -12,14 +12,8 @@ plt.rcParams.update({'font.size': 20})
 df = load_fsi.load_joined()
 load_fsi.shorten_indicators(df)
 
+df_long = load_fsi.to_long(df)
 
-#
-df_long = pandas.melt(
-    df,
-    id_vars=['Country', 'Year'],
-    value_vars=load_fsi.indicator_list_short(),
-    var_name='Indicator'
-)
 
 # taking a handful of countries and 
 # indicators to visualize out-of-the-box...

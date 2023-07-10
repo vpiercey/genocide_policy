@@ -113,7 +113,7 @@ if True:
     # figure polish
     ax.set_xlim(-max(np.abs(ax.get_xlim())), max(np.abs(ax.get_xlim())))
     ax.axvline(0,c='k', lw=3)
-    ax.set_title('FSI indicator feature importance (predicting TMK year%i)'%k, loc='left', fontsize=24)
+    ax.set_title('FSI indicator feature importance (predicting TMK year%i)'%(k+L-1), loc='left', fontsize=24)
     seaborn.move_legend(ax, loc='upper left')
     
     fig.savefig('FSI_predicting_TMK_k%i_L%i.png'%(k,L), bbox_inches='tight')

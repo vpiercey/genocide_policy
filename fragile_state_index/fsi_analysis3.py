@@ -8,10 +8,21 @@ import load_fsi
 import vis_tools_fsi
 import load_tmk
 
+#
+
+from sklearn import linear_model # for Lasso, etc.
+from sklearn import metrics      # for, e.g., sklearn.metrics.roc_auc_score
+
+#
+
+import seaborn
+
+######
+
 plt.rcParams.update({'font.size': 14})
 plt.style.use('seaborn-whitegrid')
 
-##
+########
 
 # Targeted Mass Killings data since 2006
 df_tmk = load_tmk.load()
@@ -116,7 +127,60 @@ for i in range(tmk_minyear+k+L-1, tmk_maxyear+1):
 X = np.concatenate(Xstack, axis=0)
 y = np.concatenate(ystack)
 
+features_plain = df_fsi_pivot[tmk_minyear].columns.values # C1, C2, ..., S2, S1
+features = np.concatenate([['%s_year%i'%(fp, j) for fp in features_plain] for j in range(k)])
+
 # must have no NaN at this point!
 assert( np.all(~np.isnan(X)) and np.all(~np.isnan(y)) )
 
 # final labeled data set (!!)
+
+###############
+
+# naive fit produces a null model with Lasso.
+# handle the imbalanced classes by 
+# repeated training of all TMK cases (59 of them?)
+# versus an 59 uniform iid selected non-TMK.
+
+not_tmk_idx = np.where(y!=1)[0]
+yes_tmk_idx = np.where(y==1)[0]
+ntmk = len(yes_tmk_idx)
+
+np.random.seed(10072023)
+nboots = 1000
+models = []
+models_coef_ = np.zeros( (nboots, 12*k) )
+
+subsets = np.zeros((nboots, 2*ntmk), dtype=int)
+trains = np.zeros((nboots, 2*ntmk))
+tests = np.zeros((nboots, 2*ntmk))
+aucrocs = np.zeros(nboots)
+
+for i in range(nboots):
+    model = linear_model.ElasticNet(max_iter=1e4, l1_ratio=0.5) # idk lol
+    
+    subset = np.concatenate( [yes_tmk_idx, np.random.choice(not_tmk_idx, ntmk, replace=False)] )
+    subsets[i] = subset
+    
+    model.fit(X[subset], y[subset])
+    ypred = model.predict(X[subset])
+    
+    trains[i] = y[subset]
+    tests[i] = ypred
+    # can do more sophisticated things later...
+    aucrocs[i] = metrics.roc_auc_score(y[subset], ypred)
+    
+    models.append(model)
+    models_coef_[i] = model.coef_
+    
+    #print(i, '%.3f'%aucrocs[i])
+#
+
+# build long dataframe solely for the purposes of visualization.
+df_results = pandas.DataFrame(data=models_coef_,columns=features).melt(var_name='Indicator', value_name='Coefficient')
+#df_results['Category'] = [{'X':''}]
+
+#
+
+#seaborn.swarmplot(data=df_results, x='Indicator', y='Coefficient')
+

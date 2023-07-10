@@ -56,7 +56,9 @@ def build_fsi_predicting_tmk(k=2,L=1):
     ###
     # Build indicator dataset on (country,year) for a TMK event.
     
-    df_p = df_tmk2.pivot_table(values='tmk.ordinal', index='country', columns='year')
+    # TODO: optional variable to pass to select the column 
+    # to build the pivot table out on (hence to do classification/regression on)
+    df_p = df_tmk2.pivot_table(values='tmk', index='country', columns='year')
     df_p.fillna(0., inplace=True)
     
     tmk_minyear = df_p.columns.min()

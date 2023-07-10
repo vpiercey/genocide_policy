@@ -19,7 +19,7 @@ import seaborn
 
 ######
 
-plt.rcParams.update({'font.size': 14})
+plt.rcParams.update({'font.size': 16})
 plt.style.use('seaborn-whitegrid')
 
 ########
@@ -157,7 +157,7 @@ tests = np.zeros((nboots, 2*ntmk))
 aucrocs = np.zeros(nboots)
 
 for i in range(nboots):
-    model = linear_model.ElasticNet(max_iter=1e4, l1_ratio=0.5) # idk lol
+    model = linear_model.ElasticNet(max_iter=1e4, l1_ratio=0.2, positive=False) # idk lol
     
     subset = np.concatenate( [yes_tmk_idx, np.random.choice(not_tmk_idx, ntmk, replace=False)] )
     subsets[i] = subset
@@ -178,9 +178,15 @@ for i in range(nboots):
 
 # build long dataframe solely for the purposes of visualization.
 df_results = pandas.DataFrame(data=models_coef_,columns=features).melt(var_name='Indicator', value_name='Coefficient')
-#df_results['Category'] = [{'X':''}]
+df_results['Indicator_group'] = [{'X':'S'}.get(v[0],v[0]) for v in df_results['Indicator']]
 
 #
+fig,ax = plt.subplots(figsize=(16,8), constrained_layout=True)
+seaborn.barplot(ax=ax, data=df_results, x='Indicator', y='Coefficient', alpha=0.5, hue='Indicator_group', palette='tab10', width=0.95)
 
-#seaborn.swarmplot(data=df_results, x='Indicator', y='Coefficient')
+# figure polish
+ax.set_xticklabels(ax.get_xticklabels(), rotation=60, ha='right')
+ax.set_title('FSI indicator feature importance (predicting TMK year%i)'%k, loc='left', fontsize=24)
+seaborn.move_legend(ax, loc='upper left')
 
+fig.savefig('FSI_predicting_TMK1.png', bbox_inches='tight')

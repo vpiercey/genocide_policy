@@ -44,6 +44,9 @@ def load(folder=DATA_FOLDER):
     df = pandas.concat(dfs, axis=0, ignore_index=True)
     df.drop(columns=['Change from Previous Year'], inplace=True)
     
+    # country replacements.
+    df.replace({"Côte d'Ivoire": "Cote d'Ivoire"}, inplace=True)
+    
     # country name "Kyrgyzstan" only has data for 2021-2022;
     # "Kyrgyz Republic" is complete. 
     # No apparent difference in country sovereignty.

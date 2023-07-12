@@ -42,7 +42,7 @@ RESEARCH QUESTION:
 '''
 
 # Targeted Mass Killings data since 2006
-k=2
+k=1
 L=1
 X,y,meta = datasets.build_fsi_predicting_tmk(k=k,L=L)
 
@@ -59,8 +59,8 @@ features=meta['features']
 # repeated training of all TMK cases (59 of them?)
 # versus an 59 uniform iid selected non-TMK.
 
-not_tmk_idx = np.where(y!=1)[0]
-yes_tmk_idx = np.where(y==1)[0]
+not_tmk_idx = np.where(y==0)[0]
+yes_tmk_idx = np.where(y>0)[0]
 ntmk = len(yes_tmk_idx)
 
 np.random.seed(10072023)

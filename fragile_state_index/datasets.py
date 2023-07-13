@@ -16,7 +16,7 @@ _df_fsi = load_fsi.to_long(_df_fsi)
 
 
 
-def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoing=True):
+def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoing=True, target='tmk'):
     '''
     Inputs:
         k: integer; number of consecutive years of FSI data to use.
@@ -27,6 +27,9 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
         min_year: integer (default: 2006)
         max_year: integer (default: 2023)
         track_ongoing: boolean (default: True).
+        target: string, name of column in TMK to predict (default: tmk)
+            Here, may also consider tmk.ordinal which is a relative 
+            numerical score for severity of the TMK event.
         
     Outputs:
         X : array shape (n,12*k) of FSI data by row.
@@ -62,7 +65,7 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
     
     # TODO: optional variable to pass to select the column 
     # to build the pivot table out on (hence to do classification/regression on)
-    df_p = df_tmk2.pivot_table(values='tmk', index='country', columns='year')
+    df_p = df_tmk2.pivot_table(values=target, index='country', columns='year')
     df_p.fillna(0., inplace=True)
     
     tmk_minyear = df_p.columns.min()

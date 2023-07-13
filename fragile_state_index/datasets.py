@@ -104,6 +104,7 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
     Xstack = []
     ystack = []
     countries = []
+    years = []
     
     tmk_events_tracked = []
     
@@ -134,6 +135,7 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
         ystack.append( y_i[to_keep] )
         
         countries.append( df_p.index.values[to_keep] )
+        years.append( np.repeat(i, len(countries[-1])) )
         
         # e.g. if k=2, L=1, then start at 2008 (prediction year); 
         # years 2008-1-2+1 (=2006) to 2008-1 (=2007) (TMI data years).
@@ -150,7 +152,7 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
 
     # must have no NaN at this point!
     assert( np.all(~np.isnan(X)) and np.all(~np.isnan(y)) )
-    return X,y,{'features':features, 'countries':countries}
+    return X,y,{'features':features, 'countries':countries, 'years':years}
 #
 
 def is_not_ongoing(event, prior_event_list, k=1, L=1):

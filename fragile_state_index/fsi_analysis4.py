@@ -36,15 +36,22 @@ RESEARCH QUESTION:
     There are 12 indicators; so we are mapping 12k dimensions to 1 
     dimension. 
     
-    Side-issue: if an event is happening or has happened, 
-    data becomes biased/polluted/otherwise affected which may 
-    affect downstream results.
+    In adjustment to analysis3: I would like to add two 
+    nuances to investigate the prediction problem:
+        1. Select only TMK events after a period of peace (k years), 
+           chronologically, for a given country; the rest must be thrown out.
+           (expecting fewer positive examples)
+        2. Do some type of train/test methodology, 
+           even with this methodology.
+        3. (For the future): compare countries' data points
+           restricted to a given year. For example, 
+           build a classifier based on data year 2010.
 '''
 
 # Targeted Mass Killings data since 2006
 k=1
 L=1
-X,y,meta = datasets.build_fsi_predicting_tmk(k=k,L=L)
+X,y,meta = datasets.build_fsi_predicting_tmk(k=k, L=L, track_ongoing=False)
 
 features=meta['features']
 
@@ -62,6 +69,7 @@ features=meta['features']
 not_tmk_idx = np.where(y==0)[0]
 yes_tmk_idx = np.where(y>0)[0]
 ntmk = len(yes_tmk_idx)
+print("k: %i, L: %i, ntmk: %i"%(k,L,ntmk) )
 
 np.random.seed(10072023)
 nboots = 10000
@@ -102,7 +110,6 @@ for i in range(nboots):
 df_results = pandas.DataFrame(data=models_coef_,columns=features).melt(var_name='Indicator', value_name='Coefficient')
 df_results['Indicator_group'] = [{'X':'S'}.get(v[0],v[0]) for v in df_results['Indicator']]
 
-#
 if True:
     fig,ax = plt.subplots(figsize=(12,8), constrained_layout=True)
     seaborn.barplot(data=df_results, y='Indicator', x='Coefficient', 
@@ -116,4 +123,5 @@ if True:
     ax.set_title('FSI indicator feature importance (predicting TMK year%i)'%(k+L-1), loc='left', fontsize=24)
     seaborn.move_legend(ax, loc='upper left')
     
-    fig.savefig('FSI_predicting_TMK_k%i_L%i.png'%(k,L), bbox_inches='tight')
+    fig.savefig('FSI_predicting_TMK_no_ongoing_k%i_L%i.png'%(k,L), bbox_inches='tight')
+    

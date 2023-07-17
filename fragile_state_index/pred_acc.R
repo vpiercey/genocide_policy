@@ -1,0 +1,6 @@
+library(readr)
+bootstrap_pred_results_k1_L1 <- read_csv("bootstrap_pred_results_k1_L1.csv")
+View(bootstrap_pred_results_k1_L1)
+library(tidyverse)
+pred_acc <- bootstrap_pred_results_k1_L1 %>% group_by(country) %>% summarize(pred_acc = sum(abs(true_label - pred_prob)))
+pred_acc <- pred_acc %>% arrange(pred_acc)

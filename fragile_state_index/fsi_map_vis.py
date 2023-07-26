@@ -74,6 +74,6 @@ gdf[gdf['scores'].isna()].plot(fc='#ccc', ec='#999', ax=ax, lw=0.5) # plots null
 gdf.plot(column='scores', cmap=plt.cm.cividis, ax=ax)
 
 # save
-fig.savefig('fsi_tmk_scoring_2022.png', bbox_inches='tight')
-fig.savefig('fsi_tmk_scoring_2022.pdf', bbox_inches='tight')
+fig.savefig('fsi_tmk_scoring_map_2022.png', bbox_inches='tight')
+fig.savefig('fsi_tmk_scoring_map_2022.pdf', bbox_inches='tight')
 

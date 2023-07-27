@@ -190,3 +190,30 @@ def is_not_ongoing(event, prior_event_list, k=1, L=1):
             return False
     return True
 
+def ewp_2022_23_raw(fname="sra_2023.csv"):
+    '''
+    Loads the Early Warning Project 2023 projections/scores 
+    csv file, available at 
+    
+        https://earlywarningproject.ushmm.org/downloads
+        
+    Version accessed/successful in loading in this 
+    version of our code is circa July 2023.
+    
+    Outputs:
+        df : pandas dataframe of that csv file.
+    '''
+    df = pandas.read_csv(fname)
+    return df
+
+def our_bootstrap_results_k1_L1(fname="bootstrap_pred_results_k1_L1.csv"):
+    '''
+    Loads the summary file of our ensemble/bootstrap 
+    predictions for TMK events with a 1-year forecast, 
+    using 1 year worth of Fragile State Index data.
+    
+    Outputs:
+        df : pandas dataframe of that csv file.
+    '''
+    df = pandas.read_csv(fname)
+    return df

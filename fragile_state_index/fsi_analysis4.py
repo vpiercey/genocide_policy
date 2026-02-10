@@ -21,7 +21,7 @@ import seaborn
 ######
 
 plt.rcParams.update({'font.size': 16})
-plt.style.use('seaborn-whitegrid')
+plt.style.use('ggplot')
 
 ########
 '''
@@ -82,7 +82,7 @@ tests = np.zeros((nboots, 2*ntmk))
 aucrocs = np.zeros(nboots)
 
 for i in range(nboots):
-    model = linear_model.ElasticNet(max_iter=1e4, l1_ratio=0.05, positive=False) # idk lol
+    model = linear_model.ElasticNet(max_iter=1000, l1_ratio=0.05, positive=False) # idk lol
     
     subset = np.concatenate( [yes_tmk_idx, np.random.choice(not_tmk_idx, ntmk, replace=False)] )
     subsets[i] = subset

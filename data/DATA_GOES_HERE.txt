@@ -2,4 +2,19 @@ note: for Fragile State Index files,
 rename 2022 and 2023 files 
 to match convention of prior years.
 
+See: 
+
+Targeted Mass Killing dataset --
+https://politicsir.cass.anu.edu.au/about-targeted-mass-killing-dataset
+
+Fragile State Index -- 
+https://fragilestatesindex.org/excel/
+(note: may need to manually rename some excel files in automated gluing-together of data from 2006 -- 202X if their maintainers do not keep a consistent naming convention)
+
+https://earlywarningproject.ushmm.org/
+
+
+Uppsala Conflict Data Program -- 
+
+https://ucdp.uu.se/downloads/
 

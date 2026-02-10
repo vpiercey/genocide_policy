@@ -1,0 +1,90 @@
+{
+'ewp.forecasts.2015.csv': 
+	{'url': 'https://github.com/EarlyWarningProject/2015-Statistical-Risk-Assessment/blob/master/data.out/ewp.forecasts.2015.csv',
+	'accessed': '02-Oct-2023'
+	},
+'CSAC-2.0.xlsx': 
+	{'url': 'https://www.csac.org.uk/dataset/',
+	'accessed': '21-Jun-2023'
+	},
+'fsi-2006.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2007.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2008.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2009.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2010.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2011.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2012.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2013.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2014.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2015.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2016.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2017.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2018.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2019.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2020.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2021.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2022.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'fsi-2023.xlsx':
+	{'url': 'https://fragilestatesindex.org/excel/',
+	'accessed': '05-Jul-2023'
+	},
+'tmk_annual_release_1.1.xls':
+	{'url': 'https://politicsir.cass.anu.edu.au/about-targeted-mass-killing-dataset',
+	'accessed': '20-Jun-2023'
+	}
+'tmk_events_release_1.1.xls':
+	{'url': 'https://politicsir.cass.anu.edu.au/about-targeted-mass-killing-dataset',
+	'accessed': '20-Jun-2023'
+	}
+}

@@ -12,7 +12,7 @@ tmk_to_fsi = {
 }
 
 def load(folder=DATA_FOLDER):
-    fname = os.path.join(DATA_FOLDER, 'tmk_events_release_1.1.xls')
+    fname = os.path.join(DATA_FOLDER, 'tmk_events_release_1.2.xls')
     df = pandas.read_excel(fname)
     
     #df['country'].fillna('', inplace=True)

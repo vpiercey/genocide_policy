@@ -8,7 +8,7 @@ import vis_tools_fsi
 import load_tmk
 
 plt.rcParams.update({'font.size': 14})
-plt.style.use('seaborn-whitegrid')
+plt.style.use('ggplot')
 
 ##
 

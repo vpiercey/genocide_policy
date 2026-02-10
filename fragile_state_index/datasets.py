@@ -46,6 +46,12 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
     this comes from the perspective of pre-emption (the types of 
     actions that can be taken are very different before and after 
     an event has taken place.)
+    
+    **** NOTE: 
+    When k>1, features are numbered by "year" counting
+    in increasing order from the earliest year of data. 
+    For example, when k=2, "*_Y1" refers to the current year; "*_Y0" refers 
+    to the previous year.
     '''
     df_tmk = _df_tmk[ _df_tmk['year'] >= min_year]
     
@@ -76,16 +82,16 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
         if i not in df_p.columns:
             df_p[i] = np.zeros(df_p.shape[0])
     
-    # pad with non-TMK countries where needed
+    # pad the dataframe with non-TMK countries where needed
     all_fsi_countries = _df_fsi['Country'].unique()
     non_tmk_countries = np.setdiff1d( all_fsi_countries, df_p.index )
-    _df_null = pandas.DataFrame(data = np.zeros( (len(non_tmk_countries), df_p.shape[1] ) ),
+    _df_non_tmk = pandas.DataFrame(data = np.zeros( (len(non_tmk_countries), df_p.shape[1] ) ),
                                 columns = df_p.columns, 
                                 index = non_tmk_countries
                                 )
     
     #
-    df_p = df_p.append(_df_null)
+    df_p = pandas.concat([df_p, _df_non_tmk])
     df_p.sort_index(inplace=True)
     
     tmk_only_long = df_p.melt(ignore_index=False)
@@ -94,6 +100,7 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
     # record (country, year) values if we want to not do prediction 
     # on ongoing events.
     tmk_country_years = list(zip(tmk_only_long.index, tmk_only_long['year']))
+    
     
     # TODO: Code assumes row ordering is consistent.
     # CANNOT PROCEED WITH CODE AS-IS IF THIS IS NOT TRUE.
@@ -147,8 +154,8 @@ def build_fsi_predicting_tmk(k=2,L=1, min_year=2006, max_year=2023, track_ongoin
     features_plain = df_fsi_pivot[tmk_minyear].columns.values # C1, C2, ..., S2, S1
     features = np.concatenate([['%s_Y%i'%(fp, j) for fp in features_plain] for j in range(k)])
 
-    print(tmk_events_tracked)
-    print(len(tmk_events_tracked))    
+    #print(tmk_events_tracked)
+    #print(len(tmk_events_tracked))
 
     # must have no NaN at this point!
     assert( np.all(~np.isnan(X)) and np.all(~np.isnan(y)) )
@@ -190,7 +197,10 @@ def is_not_ongoing(event, prior_event_list, k=1, L=1):
             return False
     return True
 
-def ewp_2022_23_raw(fname="sra_2023.csv"):
+# TODO: uniformize pointing to the data folder
+# across these scripts. Some are in daisy-chained 
+# modules. Not great.
+def ewp_2022_23_raw(fname="../data/" + "sra_2023.csv"):
     '''
     Loads the Early Warning Project 2023 projections/scores 
     csv file, available at 
@@ -217,3 +227,5 @@ def our_bootstrap_results_k1_L1(fname="bootstrap_pred_results_k1_L1.csv"):
     '''
     df = pandas.read_csv(fname)
     return df
+    
+

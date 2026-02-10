@@ -21,7 +21,7 @@ import seaborn
 ######
 
 plt.rcParams.update({'font.size': 16})
-plt.style.use('seaborn-whitegrid')
+plt.style.use('ggplot')
 
 ########
 '''
@@ -73,6 +73,7 @@ Proper train/test scheme now proceeds as follows:
     in the training set to predict past events)
 '''
 
+# Number of positive/negative predictive samples per bootstrap
 ns = 15
 
 not_tmk_idx = np.where(y==0)[0]
@@ -81,6 +82,7 @@ ntmk = len(yes_tmk_idx)
 print("k: %i, L: %i, ntmk: %i"%(k,L,ntmk) )
 
 np.random.seed(10072023)
+# number of bootstrap samples
 nboots = 10000
 models = []
 models_coef_ = np.zeros( (nboots, 12*k) )
@@ -95,8 +97,7 @@ train_idxs = np.zeros((nboots, 2*ns), dtype=int)
 test_idxs = np.zeros((nboots, 2*(ntmk-ns)), dtype=int)
 
 for i in range(nboots):
-    #model = linear_model.ElasticNet(max_iter=1e4, l1_ratio=0.05, positive=False) # idk lol
-    model = linear_model.LogisticRegression(max_iter=1e4, penalty='elasticnet', solver='saga', l1_ratio=0.05)
+    model = linear_model.LogisticRegression(max_iter=1000, penalty='elasticnet', solver='saga', l1_ratio=0.05)
     
     not_tmk_idx_choice = np.random.choice(not_tmk_idx, ntmk, replace=False)
     subset = np.concatenate( [yes_tmk_idx, not_tmk_idx_choice] )
